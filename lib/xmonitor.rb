@@ -1,5 +1,5 @@
 require "xmonitor/version"
 
 module Xmonitor
-  # Your code goes here...
+  require "xmonitor/agent"
 end
