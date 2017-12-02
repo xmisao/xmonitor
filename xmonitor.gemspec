@@ -25,5 +25,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "minitest", "~> 5.0"
   spec.add_runtime_dependency "aws-sdk-firehose", "~> 1.1"
+  spec.add_runtime_dependency "aws-sdk-athena", "~> 1.0"
+  spec.add_runtime_dependency "aws-sdk-s3", "~> 1.8"
   spec.add_runtime_dependency "posixpsutil", "~> 0.1"
 end

@@ -6,10 +6,15 @@ module Xmonitor
   require "yaml"
   require "json"
   require "irb"
+  require "csv"
 
   require "posixpsutil"
   require "aws-sdk-firehose"
+  require "aws-sdk-athena"
+  require "aws-sdk-s3"
 
   require "xmonitor/config"
   require "xmonitor/agent"
+
+  autoload :Dashboard, 'xmonitor/dashboard'
 end
