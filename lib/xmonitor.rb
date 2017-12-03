@@ -17,4 +17,5 @@ module Xmonitor
   require "xmonitor/agent"
 
   autoload :Printer, 'xmonitor/printer'
+  autoload :Dashboard, 'xmonitor/dashboard'
 end

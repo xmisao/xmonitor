@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>xMonitor Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+  </head>
+  <body>
+    <h1>xMonitor Dashboard</h1>
+
+    <h2>TOC</h2>
+    <ul>
+    <% @data.keys.each do |metric| %>
+      <li><a href="#<%= metric_id(metric) %>"><%= metric_name(metric) %></a></li>
+    <% end %>
+    </ul>
+
+    <h2>Metrics</h2>
+    <% @data.each do |metric, datapoints| %>
+      <h3 id="<%= metric_id(metric) %>" name="<%= metric_id(metric) %>"><%= metric_name(metric) %></h3>
+      <%= output_chart_html(metric_name(metric), datapoints) %>
+    <% end %>
+  </body>
+</html>

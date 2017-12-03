@@ -28,4 +28,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "aws-sdk-athena", "~> 1.0"
   spec.add_runtime_dependency "aws-sdk-s3", "~> 1.8"
   spec.add_runtime_dependency "posixpsutil", "~> 0.1"
+  spec.add_runtime_dependency "sinatra", "~> 2.0"
 end
