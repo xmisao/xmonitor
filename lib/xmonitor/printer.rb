@@ -1,4 +1,4 @@
-class Xmonitor::Dashboard
+class Xmonitor::Printer
   def self.start(argv)
     config_file = argv[0]
 

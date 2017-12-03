@@ -2,4 +2,4 @@
 
 require "xmonitor"
 
-Xmonitor::Dashboard.start ARGV
+Xmonitor::Printer.start ARGV
