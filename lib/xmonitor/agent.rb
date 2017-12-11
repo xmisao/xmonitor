@@ -56,6 +56,7 @@ class Xmonitor::Agent
 
   def monitor
     records = grab
+
     raise GrabError if records.empty?
 
     data = records.join(NEW_LINE) + NEW_LINE
@@ -64,7 +65,7 @@ class Xmonitor::Agent
   end
 
   def grab
-    grab_cpu + grab_memory + grab_disks
+    grab_cpu + grab_memory + grab_disks + grab_network
   rescue => e
     raise GrabError.new(e)
   end
@@ -103,6 +104,21 @@ class Xmonitor::Agent
       v.each_pair.map{|k2, v2|
         metric = "#{disk}.#{k2}"
         create_record('disks', metric, v2)
+      }
+    }.flatten
+  end
+
+  def grab_network
+    grab_net_io_counter
+  end
+
+  def grab_net_io_counter
+    PosixPsutil::Network.net_io_counters(true).each_pair.map{|(k, v)|
+      interface = k
+
+      v.each_pair.map{|k2, v2|
+        metric = "#{interface}.#{k2}"
+        create_record('network', metric, v2)
       }
     }.flatten
   end
