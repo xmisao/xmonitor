@@ -64,7 +64,7 @@ class Xmonitor::Agent
   end
 
   def grab
-    grab_cpu + grab_memory
+    grab_cpu + grab_memory + grab_disks
   rescue => e
     raise GrabError.new(e)
   end
@@ -79,6 +79,32 @@ class Xmonitor::Agent
     PosixPsutil::Memory.virtual_memory.each_pair.map{|(k, v)|
       create_record('memory', k, v)
     }
+  end
+
+  def grab_disks
+    grab_disks_usage + grab_disks_io_counter
+  end
+
+  def grab_disks_usage
+    devices = PosixPsutil::Disks.disk_partitions.map{|partition| partition.device}
+
+    devices.map{|device|
+      PosixPsutil::Disks.disk_usage(device).each_pair.map{|(k, v)|
+        metric = "#{device}.#{k}"
+        create_record('disks', metric, v)
+      }
+    }.flatten
+  end
+
+  def grab_disks_io_counter
+    PosixPsutil::Disks.disk_io_counters.each_pair.map{|(k, v)|
+      disk = k
+
+      v.each_pair.map{|k2, v2|
+        metric = "#{disk}.#{k2}"
+        create_record('disks', metric, v2)
+      }
+    }.flatten
   end
 
   def create_record(metric, dimension, value)
